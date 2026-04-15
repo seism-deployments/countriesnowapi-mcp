@@ -14,7 +14,7 @@ BASE_URL = "https://countriesnow.space/api/v0.1/countries"
 
 @mcp.tool()
 async def get_countries() -> dict:
-    """Retrieve a list of all countries with their cities. Use this when the user wants a complete list of countries, or needs to browse available country data. Returns country names paired with their associated cities."""
+    """Retrieve a list of all countries with their cities. Use this as a starting point when the user needs a full list of countries or wants to explore available country data. Returns country names paired with their city lists."""
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.get(f"{BASE_URL}")
         response.raise_for_status()
@@ -23,10 +23,10 @@ async def get_countries() -> dict:
 
 @mcp.tool()
 async def get_country_cities(country: str) -> dict:
-    """Retrieve all cities for a specific country. Use this when the user wants to know which cities exist within a particular country. Accepts a country name and returns its cities.
+    """Retrieve all cities for a specific country. Use this when the user wants to know what cities exist within a particular country. Accepts a country name and returns its cities.
 
     Args:
-        country: The name of the country to retrieve cities for (e.g. 'Nigeria', 'United States')
+        country: The name of the country to retrieve cities for (e.g., 'Nigeria', 'Canada', 'Germany').
     """
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
@@ -39,10 +39,10 @@ async def get_country_cities(country: str) -> dict:
 
 @mcp.tool()
 async def get_country_states(country: str) -> dict:
-    """Retrieve all states or provinces for a specific country. Use this when the user needs administrative subdivisions (states, provinces, regions) of a given country.
+    """Retrieve all states or provinces for a specific country. Use this when the user needs administrative subdivisions (states, provinces, regions) of a country.
 
     Args:
-        country: The name of the country to retrieve states/provinces for (e.g. 'Canada', 'Brazil')
+        country: The name of the country to retrieve states for (e.g., 'United States', 'Brazil', 'India').
     """
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
@@ -55,11 +55,11 @@ async def get_country_states(country: str) -> dict:
 
 @mcp.tool()
 async def get_state_cities(country: str, state: str) -> dict:
-    """Retrieve all cities within a specific state of a given country. Use this when the user wants to drill down from country to state level and see cities in that state.
+    """Retrieve all cities within a specific state of a given country. Use this when the user needs city-level data scoped to a particular state or province.
 
     Args:
-        country: The name of the country the state belongs to (e.g. 'United States')
-        state: The name of the state or province to retrieve cities for (e.g. 'California')
+        country: The name of the country the state belongs to (e.g., 'United States').
+        state: The name of the state or province to retrieve cities for (e.g., 'California', 'Ontario').
     """
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
@@ -72,10 +72,10 @@ async def get_state_cities(country: str, state: str) -> dict:
 
 @mcp.tool()
 async def get_country_capital(country: str) -> dict:
-    """Retrieve the capital city of a specific country. Use this when the user asks for the capital of a country or needs capital city information for geographic or informational purposes.
+    """Retrieve the capital city of a specific country. Use this when the user asks about the capital of a country or needs capital city information for geographic or educational purposes.
 
     Args:
-        country: The name of the country whose capital is needed (e.g. 'France', 'Japan')
+        country: The name of the country whose capital is being requested (e.g., 'France', 'Japan', 'Brazil').
     """
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
@@ -88,10 +88,10 @@ async def get_country_capital(country: str) -> dict:
 
 @mcp.tool()
 async def get_country_dial_codes(country: Optional[str] = None) -> dict:
-    """Retrieve dial/phone country codes for countries. Use this when the user needs international dialing codes, phone country prefixes, or ISO country codes. Can return all countries with their codes or filter by a specific country.
+    """Retrieve international dialing codes (phone country codes) for countries. Use this when the user needs to know the dial code or phone prefix for one or more countries.
 
     Args:
-        country: Optional country name to filter results. If omitted, returns dial codes for all countries.
+        country: Optional country name to filter results to a specific country (e.g., 'Ghana'). If omitted, returns dial codes for all countries.
     """
     async with httpx.AsyncClient(timeout=30.0) as client:
         if country:
@@ -107,10 +107,10 @@ async def get_country_dial_codes(country: Optional[str] = None) -> dict:
 
 @mcp.tool()
 async def get_country_currency(country: Optional[str] = None) -> dict:
-    """Retrieve currency information for a specific country or all countries. Use this when the user needs to know what currency a country uses, currency codes, or currency symbols.
+    """Retrieve currency information for a specific country or all countries. Use this when the user asks about what currency a country uses, currency codes, or currency symbols.
 
     Args:
-        country: Optional country name to filter results (e.g. 'Mexico'). If omitted, returns currency data for all countries.
+        country: Optional country name to filter to a specific country's currency (e.g., 'Japan'). If omitted, returns currency data for all countries.
     """
     async with httpx.AsyncClient(timeout=30.0) as client:
         if country:
@@ -126,10 +126,10 @@ async def get_country_currency(country: Optional[str] = None) -> dict:
 
 @mcp.tool()
 async def get_country_flag(country: str) -> dict:
-    """Retrieve the flag image URL or flag unicode/emoji for a specific country. Use this when the user wants to display or reference a country's flag in an application or response.
+    """Retrieve the flag image URL or unicode for a specific country. Use this when the user wants to display or reference a country's flag in an application or for informational purposes.
 
     Args:
-        country: The name of the country whose flag information is needed (e.g. 'Australia')
+        country: The name of the country whose flag is being requested (e.g., 'Canada', 'Australia', 'Kenya').
     """
     async with httpx.AsyncClient(timeout=30.0) as client:
         response = await client.post(
